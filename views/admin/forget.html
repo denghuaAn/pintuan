@@ -1,0 +1,38 @@
+{extends file='base.html'}
+{block name='title'}找回密码{/block}
+{block name='resources'}
+<link rel="stylesheet" type="text/css" href="css/login.css"/>
+{/block}
+{block name='body'}
+<h1 class="text-center" style="color: red;">{$error}</h1>
+<div id="forget">
+	<h1>密码找回</h1>
+	
+	{if $password}
+	<h1>您的密码是：{$password}</h1>
+	{/if}
+	
+	{if !$input_username}
+	<form action="index.php?controller=admin&action=forget" method="post">
+		<span>你的用户名是啥：</span><input class="bir" type="text" required="required" placeholder="请慎重输入" name="username"><br />
+		<button class="but" type="submit">获取密保问题</button>
+	</form>
+	{else}
+	<form method="post" action="index.php?controller=admin&action=forget">
+		<span>你的用户名是啥：</span>
+		<input class="bir" type="text" 
+			required="required" contenteditable="false" name="username" value="{$input_username}">
+			<br />
+			
+		<span><strong>问题：</strong>{$question}：</span>
+		<input class="hei" 
+			type="password" required="required" placeholder="请输入你的密保答案" name="answer">
+
+		<button class="but" type="submit">提交</button>
+	</form>
+	{/if}
+</div>
+
+
+{/block}
+

@@ -1,0 +1,35 @@
+{extends file='base.html'}
+{block name='title'}找回密码{/block}
+{block name='public'}{/block}
+{block name='resources'}
+<link rel="stylesheet" type="text/css" href="css/login.css"/>
+<script src="js/tankuang.js" type="text/javascript" charset="utf-8"></script>
+{/block}
+{block name='body'}
+	<div>
+		<div id="login">
+			<h1 style="color: red;">{$error}</h1>
+			<h1>Login</h1>
+			<form action="index.php?controller=admin&action=login" method="post">
+				<input type="text" class="yhm" placeholder="用户名" name="username" />
+				<input type="password" class="mm"placeholder="密码" name="password" />
+				<a href="index.php?controller=admin&action=register">注册</a>
+				<a href="index.php?controller=admin&action=forget">忘记密码?</a>
+				<button class="but" type="submit">登录</button>
+			</form>
+		</div>
+		<!--弹出框-->
+		<!--{if $error}
+		<div id="box">
+			<div class="cuowu" style="">
+				<h1>{$error}</h1>
+				<input type="button" value="点击确定退出" class="but" id="btn1">
+			</div>
+			<div class="zz"></div>
+			<script src="js/tankuang.js" type="text/javascript" charset="utf-8">
+				
+			</script>
+		</div>
+		{/if}-->
+	</div>
+{/block}

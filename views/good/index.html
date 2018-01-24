@@ -1,0 +1,169 @@
+{extends file='base.html'}
+{block name='title'}商品后台管理{/block}
+{block name='resources'}
+<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+{/block}
+
+{block name='body' }
+<div class="modal fade" id="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title">删除商品确认</h4>
+			</div>
+			<div class="modal-body">
+				<p>是否确认删除所选商品？</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" id="sure_btn">确定</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<form class="modal fade" id="change_dialog" enctype="multipart/form-data">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title">修改商品信息</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="change_good_type">商品类型</label>
+					<input type="text" id="change_good_type" name="good_type" class="form-control"/>
+				</div>	
+				<div class="form-group">
+					<label for="change_good_name">商品名称</label>
+					<input type="text" id="change_good_name" name="good_name" class="form-control"/>
+				</div>	
+				<div class="form-group">
+					<label for="change_good_desc">商品介绍</label>
+					<input type="text" id="change_good_desc" name="good_desc" class="form-control" />
+				</div>	
+				<div class="form-group">
+					<label for="change_good_price">商品价格</label>
+					<input type="text" id="change_good_price" name="good_price" class="form-control"/>
+				</div>
+				<div class="form-group">
+					<label for="change_good_photo">照片修改</label>
+					<div class="imgs">
+						
+					</div>
+					<input type="file" id="change_good_photos" multiple="multiple" name="good_photos[]" class="form-control" />
+				</div>	
+				<input type="text" id="good_id" name="good_id" hidden="hidden" />
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" 
+					id="sure-change" data-dismiss="modal">确定修改</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+		</div>
+	</div>
+</form>
+
+<div class="modal fade" id="add_dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title">增加商品</h4>
+			</div>
+			<form class="modal-body" action="index.php?controller=good&action=add"
+				 method="post" enctype="multipart/form-data">
+				<div class="form-group">
+				<label for="good_type">商品类型</label>
+				<input type="text" id="good_type" placeholder="input good_type" name="good_type" class="form-control" />
+			</div>
+				<div class="form-group">
+					<label for="good_name">商品名称</label>
+					<input type="text" id="good_name" placeholder="input good_name" name="good_name" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="good_desc">商品介绍</label>
+					<input type="text" id="good_desc" placeholder="input good_desc" name="good_desc" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="good_price">商品价格</label>
+					<input type="text" id="good_price" placeholder="input good_price" name="good_price" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="good_photo">商品图片</label>
+					<input type="file" multiple id="good_photo" 
+						name="good_photos[]" class="form-control" />
+				</div>
+				<div class="modal-footer">
+					<input type="submit" id="submit" value="submit" class="btn btn-primary" />
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				</div>
+				<input type="text" name="order" value="add" hidden="hidden" />
+			</form>
+		</div>
+	</div>
+</div>
+	
+<div class="container">
+	<div class="row">
+		<h1 style="font-weight: 900;">商品后台管理</h1>
+	</div>
+	<div class="manage-btn">
+		<input type="button" id="add" value="增加商品" class="btn btn-success" data-target="#add_dialog" data-toggle="modal"  />
+		<input type="button" id="delete" value="删除所选商品" class="btn btn-danger" data-target="#dialog" data-toggle="modal"  />
+	</div>
+
+	<form action="index.php?controller=good&action=del" method="post" class="form" id="delete_form">
+		<input type="text" name="order" value="del" hidden="hidden"/>
+		<table class="table" border="" cellspacing="" cellpadding="">
+			<tr>
+				<th>
+					<input type="checkbox" name="all_select" id="all_select" value="全选" />
+					<label for="all_select">全选</label>
+				</th>
+				<th>商品类型</th>
+				<th>商品名称</th>
+				<th>商品介绍</th>
+				<th>商品价格</th>
+				<th>商品图片</th>
+				<th>商品操作</th>
+			</tr>
+		
+			{foreach $goods as $key=>$good}
+				<tr>
+					<td><input class='selects' type='checkbox' 
+						value='{$key}' name='select_indexs[]' id='{$key}' />
+						<label for='{$key}'>选择</label>
+					</td>
+					<td class='good_type'>{$good['good_type']}</td>
+					<td class='good_name'>{$good['good_name']}</td>
+					<td class='good_desc'>{$good['good_desc']}</td>
+					<td class='good_price'>{$good['good_price']}</td>
+					<td class='good_photos'>
+					
+					{if $good['good_photos'] }
+						
+						{foreach json_decode($good['good_photos']) as $good_photo }
+							<img src='{$good_photo}' />
+						{/foreach}
+						
+					{/if}
+				
+				
+					</td>
+					<td>
+						<input type='button' class='show-btn btn btn-info' value='预览' />
+						<input data-target='#change_dialog' 
+							data-toggle='modal' type='button' class='change-btn btn btn-primary' 
+							value='修改' />
+						<input type='button' class='delete-btn btn btn-danger' value='删除' />
+					</td>
+				</tr>
+			{/foreach}
+		
+		
+		</table>
+	</form>
+</div>
+{/block}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>{block name='title'}{/block}</title>
+	{block name='public'}
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+	<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	{/block}
+	{block name='resources'}{/block}
+	<style type="text/css">
+		
+		.manage-btn{
+			margin: 10px auto;	
+		}
+		
+		.table img, .img{
+			margin: 5px;
+			width: 100px;
+		}
+		
+		.table{
+			border: none;
+		}
+		
+		input[type="button"]{
+			display: inline-block;	
+		}
+		
+	</style>
+</head>
+<body>
+	{block name='body'}{/block}
+</body>
+</html>
